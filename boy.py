@@ -33,7 +33,6 @@ class Idle:
             boy.action = 3
         boy.dir = 0
         boy.frame = 0
-        boy.action = 3
         boy.wait_time = get_time()
         print('Idle Enter')
 
@@ -70,9 +69,9 @@ class Sleep:
     @staticmethod
     def draw(boy):
         if boy.action == 2:
-            boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100, -math.pi/2, 'h', boy.x + 25, boy.y - 25, 100, 100)
+            boy.image.clip_composite_draw(boy.frame * 100, 200, 100, 100, -math.pi/2, '', boy.x + 25, boy.y - 30, 100, 100)
         else:    
-            boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100, math.pi/2, 'h', boy.x - 25, boy.y - 25, 100, 100)
+            boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100, math.pi/2, '', boy.x - 25, boy.y - 30, 100, 100)
 
 
 class Run:
