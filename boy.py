@@ -31,7 +31,6 @@ class Idle:
             boy.action = 2
         elif boy.action == 1:
             boy.action = 3
-        boy.dir = 0
         boy.frame = 0
         boy.wait_time = get_time()
         print('Idle Enter')
@@ -100,7 +99,10 @@ class Run:
 class AutoRun:
     @staticmethod
     def enter(boy, e):
-        boy.dir, boy.action = 1, 1
+        if boy.action == 3:
+            boy.dir, boy.action = 1, 1
+        elif boy.action == 2:
+            boy.dir, boy.action = -1, 0
         boy.size = 100
         boy.speed = 5
         boy.high = 0
@@ -139,7 +141,7 @@ class StateMachine:
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, autorun: AutoRun},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
             Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, space_down: Idle},
-            AutoRun: {time_out: Idle}
+            AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, time_out: Idle}
         }
 
     def handle_event(self, e):
