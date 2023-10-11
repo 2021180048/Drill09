@@ -102,6 +102,9 @@ class AutoRun:
     @staticmethod
     def enter(boy, e):
         boy.dir, boy.action = 1, 1
+        boy.size = 100
+        boy.speed = 5
+        boy.high = 0
         pass
 
     @staticmethod
@@ -110,19 +113,22 @@ class AutoRun:
     
     @staticmethod
     def do(boy):
+        boy.speed += 0.1
+        boy.size += 1
+        boy.high += 0.3
         boy.frame = (boy.frame + 1) % 8
         if boy.x > 750:
             boy.dir, boy.action = -1, 0
         if boy.x < 50:
             boy.dir, boy.action = 1, 1
-        boy.x += boy.dir *5
+        boy.x += boy.dir * boy.speed
         if get_time() - boy.wait_time > 5 :
             boy.state_machine.handle_event(('TIME_OUT', 0))
         pass
     
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y + boy.high, boy.size, boy.size)
         pass
 
 
